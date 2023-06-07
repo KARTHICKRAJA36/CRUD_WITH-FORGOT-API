@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "Karthick@1601",
-    "database": "Task3",
+    "database": "crud_project",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

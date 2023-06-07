@@ -4,69 +4,69 @@ const Qualifications = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Qualifications', {
 
-    user_qualification_id:{
-      type:Sequelize.INTEGER,
-      allowNull:false,
-      primaryKey:true,
-      autoIncrement:true
-    },
-
-      SSLC_School:{
-        type:Sequelize.STRING,
-        allowNull:false
-      },
-      
-     SSLC_MARK:{
-      type:Sequelize.INTEGER,
-      allowNull:false,
-      
+      user_qualification_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
       },
 
-      SSLC_PassedOut:{
-          type:Sequelize.INTEGER,
-          allowNull:false
+      SSLC_School: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
 
-      HSC_School:{
-        type:Sequelize.STRING,
-        allowNull:false
+      SSLC_MARK: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+
       },
 
-     HSC_MARK:{
-      type:Sequelize.INTEGER,
-      allowNull:false,
-     },
-     HSC_PassedOut:{
-      type:Sequelize.INTEGER,
-          allowNull:false
-     },
+      SSLC_PassedOut: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
 
-     UG_college_name:{
-      type:Sequelize.STRING,
-        allowNull:false
-     },
-     UG_Degree:{
-      type:Sequelize.ENUM('B.Tech', 'B.E', 'B.Sc', 'B.Com', 'B.A', 'BBA', 'BCA', 'Other'),
-      allowNull:false
-     },
-     UG_per:{
-      type:Sequelize.FLOAT,
-      allowNull:false,
-      
-     },
-     PG_college_name:{
-      type:Sequelize.STRING,
-        allowNull:true
-     },
-     PG_Degree:{
-      type:Sequelize.STRING,
-      allowNull:true
-     },
-     PG_per:{
-      type:Sequelize.FLOAT,
-      allowNull:true,
-      
-     }
+      HSC_School: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+
+      HSC_MARK: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      HSC_PassedOut: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+
+      UG_college_name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      UG_Degree: {
+        type: Sequelize.ENUM('B.Tech', 'B.E', 'B.Sc', 'B.Com', 'B.A', 'BBA', 'BCA', 'Other'),
+        allowNull: false
+      },
+      UG_per: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+
+      },
+      PG_college_name: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      PG_Degree: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      PG_per: {
+        type: Sequelize.FLOAT,
+        allowNull: true,
+
+      }
 
     });
   },
@@ -74,4 +74,4 @@ const Qualifications = {
     await queryInterface.dropTable('Qualifications');
   }
 };
-module.exports=Qualifications
+module.exports = Qualifications

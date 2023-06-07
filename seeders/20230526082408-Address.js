@@ -6,7 +6,6 @@ module.exports = {
     
       await queryInterface.bulkInsert('Addresses', [{
         user_address_id:1,
-
         Address_line1:'344,sonaipatti',
         Address_line2:'keelapongudi,sivagangai',
         city:'sivagangai',

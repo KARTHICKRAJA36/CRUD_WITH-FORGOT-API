@@ -28,4 +28,4 @@ const Addresses = (sequelize, DataTypes) => {
 };
 
 
-module.exports=Address
+module.exports = Address

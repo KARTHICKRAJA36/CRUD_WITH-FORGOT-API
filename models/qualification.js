@@ -21,11 +21,11 @@ const Qualifications = (sequelize, DataTypes) => {
   Qualifications.associate = (models) => {
     Qualifications.belongsTo(models.User, { foreignKey: 'userId' });
   };
-  
+
   return Qualifications;
 };
 
-module.exports=Qualifications
+module.exports = Qualifications
 
 
 

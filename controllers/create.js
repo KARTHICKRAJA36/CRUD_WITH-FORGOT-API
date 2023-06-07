@@ -4,11 +4,11 @@ const Qualifications = require("../model/Qualification")
 const Addresses = require("../model/address")
 const errors = require("../Messages/Error")
 const responses = require("../Messages/Response")
-class updatecontroller {
-  static async updateUserWithQualificationAndAddress(req, res) {
+class usercontrol {
+  static async createUserWithQualificationAndAddress(req, res) {
     try {
-      const { id } = req.params;
       const {
+        id,
         username,
         password,
         firstName,
@@ -48,21 +48,16 @@ class updatecontroller {
 
       } = req.body;
 
+      console.log(req.file);
 
 
-      // Find the user by ID
-      const user = await Users.findByPk(id);
-      if (!user) {
-        return res.status(404).json({
-          status: errors.failure,
-          message: errors.notFound,
-        });
-      }
 
-      // Update the user
-      await user.update({
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const createdUser = await Users.create({
+        id,
         username,
-        password: password ? await bcrypt.hash(password, 10) : user.password,
+        password: hashedPassword,
         firstName,
         lastName,
         email,
@@ -76,23 +71,14 @@ class updatecontroller {
         PAN,
         company_name,
         Role,
-        Salary,
+        Salary: parseFloat(Salary),
         Prog_lang_known,
         Area_of_interest,
-        Resume: req.file ? req.file.filename : user.Resume
+        Resume: req.file ? req.file.filename : null,
       });
 
-      // Find the qualification by userId
-      const qualification = await Qualifications.findOne({ where: { userId: id } });
-      if (!qualification) {
-        return res.status(404).json({
-          status: errors.failure,
-          message: errors.notFound,
-        });
-      }
-
-      // Update the qualification
-      await qualification.update({
+      const createdQualification = await Qualifications.create({
+        userId: createdUser.id,
         SSLC_School,
         SSLC_MARK,
         SSLC_PassedOut,
@@ -101,42 +87,30 @@ class updatecontroller {
         HSC_PassedOut,
         UG_college_name,
         UG_Degree,
-        UG_per,
+        UG_per: parseFloat(UG_per),
         PG_college_name,
         PG_Degree,
-        PG_per
-
+        PG_per: parseFloat(PG_per),
       });
 
-      // Find the address by userId
-      const address = await Addresses.findOne({ where: { userId: id } });
-      if (!address) {
-        return res.status(404).json({
-          status: errors.failure,
-          message: errors.notFound,
-        });
-      }
-
-      // Update the address
-      await address.update({
+      const createdAddress = await Addresses.create({
+        userId: createdUser.id,
         Address_line1,
         Address_line2,
         city,
         state,
         pincode,
-        country,
+        country
       });
 
-      
       res.status(200).json({
         status: responses.success,
-        message: 'Users data updated successfully',
-        data: user, qualification, address
-
+        message: responses.useradd,
+        data: createdUser, createdQualification, createdAddress
       });
     } catch (error) {
       console.error(error);
-      res.status(404).json({
+      res.status(500).json({
         status: errors.failure,
         message: error.message,
       });
@@ -144,6 +118,4 @@ class updatecontroller {
   }
 }
 
-
-
-module.exports = updatecontroller
+module.exports = usercontrol

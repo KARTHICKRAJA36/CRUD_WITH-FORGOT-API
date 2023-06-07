@@ -4,13 +4,16 @@ const jwt = require('jsonwebtoken');
 const Users=require("../model/user")
 const Qualifications=require("../model/Qualification")
 const Addresses=require("../model/address")
+const errors=require("../Messages/Error")
+const responses=require("../Messages/Response")
+
 const admindetail=async (req, res) => {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
   
     try {
       
       const admin = await Users.findOne({
-        where: { email },
+        where: { username },
         include: [
           {
             model: Qualifications,
@@ -25,22 +28,36 @@ const admindetail=async (req, res) => {
       console.log(admin);
   
       if (!admin) {
-        return res.status(404).json({ error: 'Admin not found' });
+        return res.status(404).json({ 
+          status:errors.failure,
+          message:errors.notFound
+         });
       }
   
       const isPasswordValid = await bcrypt.compare(password, admin.password);
   
       if (!isPasswordValid) {
-        return res.status(401).json({ error: 'Invalid password' });
+        return res.status(401).json({ 
+          status:errors.failure,
+          message:errors.wrongpassword
+         });
       }
   
       
       const token = jwt.sign({ adminId: admin.id }, 'your_secret_key'); 
-  
-      res.json({ token });
+
+      res.status(200).json({
+        status:responses.success,
+        message:responses.adminlog,
+        data: token,
+      })
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Server error' });
+      res.status(500).json({
+        status:errors.failure,
+        message:errors.adminlog,
+        data:error.message
+      })
     }
   };
   module.exports=admindetail

@@ -2,7 +2,7 @@
 const {
   Model
 } = require('sequelize');
-const address=require("./address")
+const address = require("./address")
 const Qualification = require('./qualification');
 const Users = (sequelize, DataTypes) => {
   class Users extends Model {
@@ -23,7 +23,7 @@ const Users = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true,
       type: DataTypes.INTEGER,
-      
+
     }
   });
   Users.associate = (models) => {
@@ -37,4 +37,4 @@ const Users = (sequelize, DataTypes) => {
   return User;
 
 };
-module.exports=Users
+module.exports = Users
