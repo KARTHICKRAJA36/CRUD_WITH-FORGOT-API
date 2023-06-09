@@ -3,8 +3,9 @@ const Qualifications = require("../model/Qualification")
 const Addresses = require("../model/address")
 const errors = require("../Messages/Error")
 const responses = require("../Messages/Response")
+const customerrorhandle = require("../controllers/customerror")
 
-const userdetail = async (req, res) => {
+const userdetail = async (req, res, next) => {
   try {
     const users = await Users.findAll({
       include: [
@@ -22,10 +23,12 @@ const userdetail = async (req, res) => {
   catch (error) {
     console.error(error);
 
-    res.status(500).json({
-      status: errors.serverError,
-      message: error,
-    });
+    // res.status(500).json({
+    //   status: errors.serverError,
+    //   message: error,
+    // });
+    const err = new customerrorhandle(500, error)
+    next(err)
   }
 };
 

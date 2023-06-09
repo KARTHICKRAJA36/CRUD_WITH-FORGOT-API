@@ -4,8 +4,9 @@ const Qualifications = require("../model/Qualification")
 const Addresses = require("../model/address")
 const errors = require("../Messages/Error")
 const responses = require("../Messages/Response")
+const customerrorhandle = require("../controllers/customerror")
 class updatecontroller {
-  static async updateUserWithQualificationAndAddress(req, res) {
+  static async updateUserWithQualificationAndAddress(req, res, next) {
     try {
       const { id } = req.params;
       const {
@@ -53,10 +54,12 @@ class updatecontroller {
       // Find the user by ID
       const user = await Users.findByPk(id);
       if (!user) {
-        return res.status(404).json({
-          status: errors.failure,
-          message: errors.notFound,
-        });
+        // return res.status(404).json({
+        //   status: errors.failure,
+        //   message: errors.notFound,
+        // });
+        const err = new customerrorhandle(404, errors.notFound)
+        next(err)
       }
 
       // Update the user
@@ -85,10 +88,12 @@ class updatecontroller {
       // Find the qualification by userId
       const qualification = await Qualifications.findOne({ where: { userId: id } });
       if (!qualification) {
-        return res.status(404).json({
-          status: errors.failure,
-          message: errors.notFound,
-        });
+        // return res.status(404).json({
+        //   status: errors.failure,
+        //   message: errors.notFound,
+        // });
+        const err = new customerrorhandle(404, errors.notFound)
+        next(err)
       }
 
       // Update the qualification
@@ -111,10 +116,12 @@ class updatecontroller {
       // Find the address by userId
       const address = await Addresses.findOne({ where: { userId: id } });
       if (!address) {
-        return res.status(404).json({
-          status: errors.failure,
-          message: errors.notFound,
-        });
+        // return res.status(404).json({
+        //   status: errors.failure,
+        //   message: errors.notFound,
+        // });
+        const err = new customerrorhandle(404, errors.notFound)
+        next(err)
       }
 
       // Update the address
@@ -127,7 +134,7 @@ class updatecontroller {
         country,
       });
 
-      
+
       res.status(200).json({
         status: responses.success,
         message: 'Users data updated successfully',
@@ -136,10 +143,12 @@ class updatecontroller {
       });
     } catch (error) {
       console.error(error);
-      res.status(404).json({
-        status: errors.failure,
-        message: error.message,
-      });
+      // res.status(404).json({
+      //   status: errors.failure,
+      //   message: error.message,
+      // });
+      const err = new customerrorhandle(404, error)
+      next(err)
     }
   }
 }

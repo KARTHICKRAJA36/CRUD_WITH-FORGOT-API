@@ -4,8 +4,9 @@ const Qualifications = require("../model/Qualification")
 const Addresses = require("../model/address")
 const errors = require("../Messages/Error")
 const responses = require("../Messages/Response")
+const customerrorhandle = require('../controllers/customerror')
 class usercontrol {
-  static async createUserWithQualificationAndAddress(req, res) {
+  static async createUserWithQualificationAndAddress(req, res, next) {
     try {
       const {
         id,
@@ -110,10 +111,12 @@ class usercontrol {
       });
     } catch (error) {
       console.error(error);
-      res.status(500).json({
-        status: errors.failure,
-        message: error.message,
-      });
+      // res.status(500).json({
+      //   status: errors.failure,
+      //   message: error.message,
+      // });
+      const err = new customerrorhandle(500, error)
+      next(err)
     }
   }
 }

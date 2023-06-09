@@ -5,23 +5,28 @@ const Qualifications = require("../model/Qualification")
 const Addresses = require("../model/address")
 const errors = require("../Messages/Error")
 const responses = require("../Messages/Response")
-const userlogin = async (req, res) => {
+const customerrorhandle = require('../controllers/customerror')
+const userlogin = async (req, res, next) => {
   const { username, password } = req.body;
   try {
     const user = await Users.findOne({ where: { username } })
     if (!user) {
-      return res.status(404).json({
-        status: errors.serverError,
-        message: errors.notFound,
-      });
+      // return res.status(404).json({
+      //   status: errors.serverError,
+      //   message: errors.notFound,
+      // });
+      const err = new customerrorhandle(404, errors.notFound)
+      next(err)
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
-      return res.status(401).json({
-        status: errors.failure,
-        message: errors.wrongpassword
-      });
+      // return res.status(401).json({
+      //   status: errors.failure,
+      //   message: errors.wrongpassword
+      // });
+      const err = new customerrorhandle(401, errors.wrongpassword)
+      next(err)
     }
     const token = jwt.sign({ userId: user.id }, 'secret_key');
 
@@ -34,10 +39,12 @@ const userlogin = async (req, res) => {
   }
   catch (error) {
     console.error(error);
-    res.status(500).json({
-      status: errors.failure,
-      message: error.message,
-    });
+    // res.status(500).json({
+    //   status: errors.failure,
+    //   message: error.message,
+    // });
+    const err = new customerrorhandle(500, error)
+    next(err)
   }
 }
 module.exports = userlogin

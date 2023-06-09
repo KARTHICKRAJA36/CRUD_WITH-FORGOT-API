@@ -17,23 +17,26 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const upload = multer({ storage,fileFilter });
+const upload = multer({ storage, fileFilter });
 module.exports = (req, res, next) => {
   upload.single('Resume')(req, res, (err) => {
     if (err instanceof multer.MulterError) {
-      return res.status(400).json({ 
-        status:errors.failure,
-        message: err.message });
-    } 
+      return res.status(400).json({
+        status: errors.failure,
+        message: err.message
+      });
+    }
     else if (err) {
-      return res.status(500).json({ 
-        status:errors.failure,
-        message: err.message });
+      return res.status(500).json({
+        status: errors.failure,
+        message: err.message
+      });
     }
     else if (!req.file) {
-      return res.status(400).json({ 
-        status:errors.failure,
-        message:errors.nofile });
+      return res.status(400).json({
+        status: errors.failure,
+        message: errors.nofile
+      });
     }
     next();
   });
