@@ -1,14 +1,25 @@
 const express = require("express")
 const app = express()
-const Database = require("./config/database")
+const sequelize = require("./config/database")
 const bodyParser = require("body-parser")
 const router = require("./router/router")
 const globalerrorhandle = require("./controllers/globalerror")
 
 
+
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(router)
+
+sequelize.authenticate()
+    .then(() => {
+        console.log("Database connected successfully");
+    })
+    .catch((err) => {
+        console.log("error:" + err);
+    })
+    
+
 
 app.all('*', (req, res, next) => {
     const err = new Error('cannot find the ${req.originalUrl} in the server');

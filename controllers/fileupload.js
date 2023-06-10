@@ -1,4 +1,4 @@
-const Users = require("../model/user")
+const Users = require("../model/User")
 const errors = require("../Messages/Error")
 const responses = require("../Messages/Response")
 const fileupload = async (req, res) => {

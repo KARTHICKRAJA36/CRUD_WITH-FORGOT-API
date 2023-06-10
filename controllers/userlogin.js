@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt")
 const jwt = require('jsonwebtoken')
-const Users = require("../model/user")
+const Users = require("../model/User")
 const Qualifications = require("../model/Qualification")
 const Addresses = require("../model/address")
 const errors = require("../Messages/Error")
