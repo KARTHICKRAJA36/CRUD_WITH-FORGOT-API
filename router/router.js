@@ -11,7 +11,7 @@ const updatecontroller = require("../controllers/update")
 const deletecontrol = require("../controllers/delete")
 const userlogin = require("../controllers/userlogin")
 const checkuserToken = require("../controllers/userdata")
-const authcontrols=require("../controllers/authcontrols")
+const authcontrols = require("../controllers/authcontrols")
 
 
 router.post('/adminlogin', admindetail)
@@ -22,7 +22,7 @@ router.delete('/delete/:id', checktoken, deletecontrol.deleteUserWithQualificati
 router.post('/fileupload/:id', checktoken, upload, fileupload)
 router.post('/userlogin', userlogin)
 router.get('/userdata', checkuserToken)
-router.post('/forgotPassword',authcontrols.forgotPassword)
-router.post('/resetPassword',authcontrols.resetPassword)
+router.post('/forgotPassword', authcontrols.forgotPassword)
+router.post('/resetPassword', authcontrols.resetPassword)
 
 module.exports = router;

@@ -50,8 +50,8 @@ const admindetail = async (req, res, next) => {
     })
   } catch (error) {
     console.error(error);
-    const err = new customerrorhandle(500, errors.adminlog)
-    next()
+    const err = new customerrorhandle(500, error.message)
+    next(err)
   }
 };
 module.exports = admindetail

@@ -3,19 +3,19 @@ const sequelize = require("../config/database")
 // const Users = require("./user")
 class Tokens extends Model { }
 Tokens.init({
-    id:{
-        type:DataTypes.INTEGER,
-        allowNull:false,
-        autoIncrement:true,
-        primaryKey:true,
-    },
-  token:{
-    type:DataTypes.STRING,
-    allowNull:false,
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
   },
-  userId:{
-    type:DataTypes.INTEGER,
-    allowNull:false,
+  token: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
   }
 }, {
   sequelize,

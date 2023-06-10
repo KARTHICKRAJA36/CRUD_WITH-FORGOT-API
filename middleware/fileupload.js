@@ -22,19 +22,19 @@ module.exports = (req, res, next) => {
   upload.single('Resume')(req, res, (err) => {
     if (err instanceof multer.MulterError) {
       return res.status(400).json({
-        status: errors.failure,
+        status: 400,
         message: err.message
       });
     }
     else if (err) {
       return res.status(500).json({
-        status: errors.failure,
+        status: 500,
         message: err.message
       });
     }
     else if (!req.file) {
       return res.status(400).json({
-        status: errors.failure,
+        status: 400,
         message: errors.nofile
       });
     }

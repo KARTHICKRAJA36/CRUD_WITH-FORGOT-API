@@ -1,16 +1,15 @@
 const Users = require("../model/User")
 const errors = require("../Messages/Error")
 const responses = require("../Messages/Response")
-const fileupload = async (req, res) => {
+const customerrorhandle = require("../controllers/customerror")
+const fileupload = async (req, res, next) => {
 
   const id = req.params.id
   try {
     const user = await Users.findByPk(id);
     if (!user) {
-      return res.status(404).json({
-        status: errors.failure,
-        message: errors.notFound,
-      });
+      const err = new customerrorhandle(404, errors.notFound)
+      next(err)
     }
 
     await user.update({
@@ -24,10 +23,8 @@ const fileupload = async (req, res) => {
   }
   catch (error) {
     console.error(error);
-    res.status(500).json({
-      status: errors.failure,
-      message: error.message,
-    });
+    const err = new customerrorhandle(500, error.message)
+    next(err)
   }
 
 }

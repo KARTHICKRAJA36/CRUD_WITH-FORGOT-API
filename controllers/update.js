@@ -48,8 +48,8 @@ class updatecontroller {
 
       } = req.body;
 
-      if(req.body.password){
-        const err=new customerrorhandle(400,"you can't able to update password")
+      if (req.body.password) {
+        const err = new customerrorhandle(400, "you can't able to update password")
         next(err)
       }
 
