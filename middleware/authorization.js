@@ -9,11 +9,6 @@ let checktoken = (req, res, next) => {
             if (err) {
                 const err = new customerrorhandle(500, errors.WrongToken)
                 next(err)
-                // res.status(500).json({
-                //     status: errors.failure,
-                //     message: errors.WrongToken,
-                // });
-
                 return;
             }
             else {
@@ -26,10 +21,6 @@ let checktoken = (req, res, next) => {
 
     }
     else {
-        // return res.status(401).json({
-        //     status: errors.failure,
-        //     message: errors.Tokenmiss
-        // });
         const err = new customerrorhandle(401, errors.Tokenmiss)
         next(err);
     }

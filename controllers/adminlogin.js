@@ -29,10 +29,6 @@ const admindetail = async (req, res, next) => {
     console.log(admin);
 
     if (!admin) {
-      // return res.status(404).json({ 
-      //   status:errors.failure,
-      //   message:errors.notFound
-      //  });
       const err = new customerrorhandle(404, errors.notFound)
       next(err)
     }
@@ -40,10 +36,6 @@ const admindetail = async (req, res, next) => {
     const isPasswordValid = await bcrypt.compare(password, admin.password);
 
     if (!isPasswordValid) {
-      // return res.status(401).json({ 
-      //   status:errors.failure,
-      //   message:errors.wrongpassword
-      //  });
       const err = new customerrorhandle(401, errors.wrongpassword)
       next(err)
     }
@@ -58,11 +50,6 @@ const admindetail = async (req, res, next) => {
     })
   } catch (error) {
     console.error(error);
-    // res.status(500).json({
-    //   status:errors.failure,
-    //   message:errors.adminlog,
-    //   data:error.message
-    // })
     const err = new customerrorhandle(500, errors.adminlog)
     next()
   }

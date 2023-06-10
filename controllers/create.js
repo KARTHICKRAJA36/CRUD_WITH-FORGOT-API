@@ -111,10 +111,6 @@ class usercontrol {
       });
     } catch (error) {
       console.error(error);
-      // res.status(500).json({
-      //   status: errors.failure,
-      //   message: error.message,
-      // });
       const err = new customerrorhandle(500, error)
       next(err)
     }

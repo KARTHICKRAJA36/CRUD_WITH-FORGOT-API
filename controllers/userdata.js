@@ -10,10 +10,6 @@ const checkuserToken = async (req, res, next) => {
   const token = req.headers.authorization;
 
   if (!token) {
-    // return res.status(401).json({
-    //   status: errors.failure,
-    //   message: errors.Tokenmiss
-    // });
     const err = new customerrorhandle(401, errors.Tokenmiss)
     next(err)
   }
@@ -37,10 +33,6 @@ const checkuserToken = async (req, res, next) => {
     });
   } catch (error) {
     console.error(error);
-    // res.status(500).json({
-    //   status: errors.failure,
-    //   message: errors.WrongToken,
-    // });
     const err = new customerrorhandle(500, errors.WrongToken)
     next(err)
   }

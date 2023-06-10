@@ -22,11 +22,6 @@ const userdetail = async (req, res, next) => {
   }
   catch (error) {
     console.error(error);
-
-    // res.status(500).json({
-    //   status: errors.serverError,
-    //   message: error,
-    // });
     const err = new customerrorhandle(500, error)
     next(err)
   }

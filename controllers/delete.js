@@ -12,10 +12,6 @@ class deletecontrol {
       // Find the user by ID
       const user = await Users.findByPk(id);
       if (!user) {
-        // return res.status(404).json({
-        //   status: errors.failure,
-        //   message: errors.notFound,
-        // });
         const err = new customerrorhandle(404, errors.notFound)
         next(err)
       }
@@ -23,10 +19,6 @@ class deletecontrol {
       // Find the qualification by userId
       const qualification = await Qualifications.findOne({ where: { userId: id } });
       if (!qualification) {
-        // return res.status(404).json({
-        //   status: errors.failure,
-        //   message: errors.notFound,
-        // });
         const err = new customerrorhandle(404, errors.notFound)
         next(err)
       }
@@ -34,10 +26,6 @@ class deletecontrol {
       // Find the address by userId
       const address = await Addresses.findOne({ where: { userId: id } });
       if (!address) {
-        // return res.status(404).json({
-        //   status: errors.failure,
-        //   message: errors.notFound,
-        // });
         const err = new customerrorhandle(404, errors.notFound)
         next(err);
       }
@@ -54,10 +42,6 @@ class deletecontrol {
       });
     } catch (error) {
       console.error(error);
-      // res.status(404).json({
-      //   status: errors.failure,
-      //   message: error.message,
-      // });
       const err = new customerrorhandle(404, error)
       next(err)
     }

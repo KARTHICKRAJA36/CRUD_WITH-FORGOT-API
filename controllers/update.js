@@ -11,7 +11,6 @@ class updatecontroller {
       const { id } = req.params;
       const {
         username,
-        password,
         firstName,
         lastName,
         email,
@@ -49,15 +48,14 @@ class updatecontroller {
 
       } = req.body;
 
-
+      if(req.body.password){
+        const err=new customerrorhandle(400,"you can't able to update password")
+        next(err)
+      }
 
       // Find the user by ID
       const user = await Users.findByPk(id);
       if (!user) {
-        // return res.status(404).json({
-        //   status: errors.failure,
-        //   message: errors.notFound,
-        // });
         const err = new customerrorhandle(404, errors.notFound)
         next(err)
       }
@@ -65,7 +63,7 @@ class updatecontroller {
       // Update the user
       await user.update({
         username,
-        password: password ? await bcrypt.hash(password, 10) : user.password,
+        // password: password ? await bcrypt.hash(password, 10) : user.password,
         firstName,
         lastName,
         email,
@@ -88,10 +86,6 @@ class updatecontroller {
       // Find the qualification by userId
       const qualification = await Qualifications.findOne({ where: { userId: id } });
       if (!qualification) {
-        // return res.status(404).json({
-        //   status: errors.failure,
-        //   message: errors.notFound,
-        // });
         const err = new customerrorhandle(404, errors.notFound)
         next(err)
       }
@@ -116,10 +110,6 @@ class updatecontroller {
       // Find the address by userId
       const address = await Addresses.findOne({ where: { userId: id } });
       if (!address) {
-        // return res.status(404).json({
-        //   status: errors.failure,
-        //   message: errors.notFound,
-        // });
         const err = new customerrorhandle(404, errors.notFound)
         next(err)
       }
@@ -143,10 +133,6 @@ class updatecontroller {
       });
     } catch (error) {
       console.error(error);
-      // res.status(404).json({
-      //   status: errors.failure,
-      //   message: error.message,
-      // });
       const err = new customerrorhandle(404, error)
       next(err)
     }
